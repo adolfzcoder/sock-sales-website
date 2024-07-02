@@ -11,8 +11,8 @@ import NavbarProps from "../interfaces/NavbarProps.interface";
 const navigation = [
   { name: "Home", href: "#", current: true },
   { name: "Dashboard", href: "#", current: false },
-  { name: "Login", href: "#", current: false },
-  { name: "Sign Up", href: "#", current: false },
+  { name: "Login", href: "/login", current: false },
+  { name: "Sign Up", href: "/sign-up", current: false },
 ];
 
 function classNames(
@@ -78,7 +78,7 @@ const Navbar: React.FC<NavbarProps> = ({ index }) => {
                 <Menu as="div" className="relative ml-3">
                   <div>
                     <button className="block px-4 py-2 text-sm text-black border border-black rounded-lg hover:text-white hover:border-white transition-all">
-                      Sign out
+                      Logout
                     </button>
                   </div>
                 </Menu>
