@@ -1,4 +1,5 @@
 import Navbar from "../components/Navbar";
+import SockCard from "../components/SockCard";
 
 const Dashboard = () => {
   return (
@@ -24,6 +25,13 @@ const Dashboard = () => {
               </button>
             </div>
           </div>
+        </section>
+
+        <section className="bg-white md:py-10 md:px-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-y-10 gap-y-11 pt-8 pb-12">
+            <SockCard />
+            <SockCard />
+            <SockCard />
+            <SockCard />
         </section>
       </main>
     </>
