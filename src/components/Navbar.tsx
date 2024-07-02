@@ -10,7 +10,7 @@ import NavbarProps from "../interfaces/NavbarProps.interface";
 
 const navigation = [
   { name: "Home", href: "#", current: true },
-  { name: "Dashboard", href: "#", current: false },
+  { name: "Dashboard", href: "/dashboard", current: false },
   { name: "Login", href: "/login", current: false },
   { name: "Sign Up", href: "/sign-up", current: false },
 ];
@@ -31,7 +31,7 @@ const Navbar: React.FC<NavbarProps> = ({ index }) => {
   return (
     <Disclosure
       as="nav"
-      className="bg-yellow-500 font-poppins  md:h-[8vh] lg:h-[10vh]"
+      className="bg-yellow-500 font-poppins  md:h-[6vh] lg:h-[10vh]"
     >
       {({ open }) => (
         <>

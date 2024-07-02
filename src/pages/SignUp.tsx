@@ -9,7 +9,7 @@ const SignUp = () => {
     <Navbar index={3} />
       
     <main
-        className="h-[90vh] md:h-[92vh] lg:h-[90vh] bg-main bg-cover bg-center bg-no-repeat flex flex-col justify-center font-poppins px-6 lg:px-8"
+        className="h-[90vh] md:h-[94vh] lg:h-[90vh] bg-main bg-cover bg-center bg-no-repeat flex flex-col justify-center font-poppins px-6 lg:px-8"
         id="bg-img"
       >
         <div className="flex justify-center">
@@ -29,8 +29,8 @@ const SignUp = () => {
               </div>
               <div className="mt-2">
               <select
-                      id="room-type"
-                      autoComplete="room-type"
+                      id="role"
+                      autoComplete="role"
                       className="block w-full rounded-md border-0 py-2 text-black bg-yellow-200 shadow-sm ring-1 ring-inset ring-yellow-600 focus:ring-2 focus:ring-inset focus:ring-yellow-600 sm:text-sm sm:leading-6 outline-none"
                     >
                       {roles.map((item) => (
