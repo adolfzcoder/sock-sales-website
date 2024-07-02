@@ -14,7 +14,7 @@ const Hero = () => {
 
       <div className="mt-8 md:mt-14 flex justify-center gap-x-7">
         <div>
-            <img src={casual} className="h-64 md:max-h-96 rounded-lg" alt="casual outfit" />
+            <img src={casual} className="h-64 md:h-96 rounded-lg" alt="casual outfit" />
         </div>
         <div className="flex flex-col justify-between">
             <img src={casual2} className="h-28 md:h-44 rounded-lg" alt="casual outfit 2" />

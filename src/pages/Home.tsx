@@ -6,6 +6,13 @@ import catalogImage2 from "../assets/catalog-2.jpg";
 import catalogImage3 from "../assets/catalog-3.jpg";
 import catalogImage4 from "../assets/catalog-4.jpg";
 import Hero from "../sections/Hero";
+import OurSocks from "../sections/OurSocks";
+import Formal from "../sections/Formal";
+import Sport from "../sections/Sport";
+import Funky from "../sections/Funky";
+import Casual from "../sections/Casual";
+import Footer from "../components/Footer";
+
 
 const catalogues = [
   {
@@ -48,9 +55,19 @@ const Home = () => {
         </section>
 
           <Hero />
+          <OurSocks />
+
+          <section>
+              <h2 className="ms-5 md:ms-10 text-3xl font-bold font-nunito">Catalog</h2>
+              <Formal />
+              <Sport />
+              <Funky />
+              <Casual />
+          </section>
      </main>
+     <Footer />
     </>
   )
 }
 
-export default Home
+export default Home;
