@@ -4,7 +4,7 @@ import logo from "../assets/logo-rec.png";
 const Login = () => {
   return (
     <>
-      <Navbar />
+      <Navbar index={2} />
 
       <main className="h-[90vh] md:h-[92vh] lg:h-[90vh] bg-main bg-cover bg-center bg-no-repeat flex flex-col justify-center font-poppins px-6 lg:px-8" id="bg-img">
       <div className="flex justify-center">

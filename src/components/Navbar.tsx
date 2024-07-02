@@ -6,6 +6,7 @@ import {
 } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import logo from "../assets/logo-transparent-bg-30x50.png";
+import NavbarProps from "../interfaces/NavbarProps.interface";
 
 const navigation = [
   { name: "Home", href: "#", current: true },
@@ -20,9 +21,18 @@ function classNames(
   return classes.filter(Boolean).join(" ");
 }
 
-const Navbar = () => {
+const Navbar: React.FC<NavbarProps> = ({ index }) => {
+  for (let count = 0; count < navigation.length; count++) {
+    navigation[count].current = false;
+  }
+
+  navigation[index].current = true;
+
   return (
-    <Disclosure as="nav" className="bg-yellow-500 font-poppins  md:h-[8vh] lg:h-[10vh]">
+    <Disclosure
+      as="nav"
+      className="bg-yellow-500 font-poppins  md:h-[8vh] lg:h-[10vh]"
+    >
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -67,8 +77,7 @@ const Navbar = () => {
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
                   <div>
-                    <button
-                      className="block px-4 py-2 text-sm text-black border border-black rounded-lg hover:text-white hover:border-white transition-all">
+                    <button className="block px-4 py-2 text-sm text-black border border-black rounded-lg hover:text-white hover:border-white transition-all">
                       Sign out
                     </button>
                   </div>
