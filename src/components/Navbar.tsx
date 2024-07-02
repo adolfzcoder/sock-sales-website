@@ -9,7 +9,7 @@ import logo from "../assets/logo-transparent-bg-30x50.png";
 import NavbarProps from "../interfaces/NavbarProps.interface";
 
 const navigation = [
-  { name: "Home", href: "#", current: true },
+  { name: "Home", href: "/", current: true },
   { name: "Dashboard", href: "/dashboard", current: false },
   { name: "Login", href: "/login", current: false },
   { name: "Sign Up", href: "/sign-up", current: false },
