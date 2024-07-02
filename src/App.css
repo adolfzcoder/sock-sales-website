@@ -5,3 +5,7 @@
 .font-poppins {
   font-family: "Poppins", sans-serif;
 }
+
+#bg-img{
+  background-image: url('./assets/bg-login-signup.png');
+}
