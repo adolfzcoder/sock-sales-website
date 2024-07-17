@@ -10,7 +10,7 @@ import NavbarProps from "../interfaces/NavbarProps.interface";
 
 const navigation = [
   { name: "Home", href: "/", current: true },
-  { name: "Dashboard", href: "/dashboard", current: false },
+  { name: "Add Socks", href: "/add-socks", current: false },
   { name: "Login", href: "/login", current: false },
   { name: "Sign Up", href: "/sign-up", current: false },
 ];
