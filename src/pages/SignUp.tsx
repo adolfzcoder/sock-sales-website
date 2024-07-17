@@ -22,17 +22,18 @@ const SignUp = () => {
     const { email, password } = formData;
     try {
       // setIsLoading(true);
-      // const { data, error } = await supabase.from("users").insert({
-      //   email: email,
-      //   password: password,
-      // });
-      const { error } = await supabase.auth.signUp({
+      const { error } = await supabase.from("user").insert({
         email: email,
         password: password,
       });
-      if (error) {
-        return console.log(error);
+      const { error: signUpError } = await supabase.auth.signUp({
+        email: email,
+        password: password,
+      });
+      if (signUpError) {
+        return console.log(signUpError);
       }
+
       console.log("Succesfully signed yp");
       navigate("/login");
       // if (data) {

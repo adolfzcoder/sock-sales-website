@@ -1,10 +1,11 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import {
   Dialog,
   DialogBackdrop,
   DialogPanel,
   DialogTitle,
 } from "@headlessui/react";
+import supabase from "../config/supabaseClient";
 
 interface SockCardModalProps {
   open: boolean;
@@ -12,18 +13,44 @@ interface SockCardModalProps {
 }
 
 const AddCatalogueModal: FC<SockCardModalProps> = ({ open, setOpen }) => {
+  const [catalogName, setCatalogName] = useState("");
+
+  const handleAddCatalog = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("catalog")
+        .insert([{ catalog_name: catalogName }]);
+
+      if (error) {
+        throw error;
+      }
+
+      console.log("Catalog inserted successfully:", data);
+      // Optionally, you can close the modal after successful insertion
+      setOpen(false);
+    } catch (error) {
+      console.log("error in catch", error);
+      alert(error);
+      // Handle error state or display an error message
+    }
+  };
+
   return (
-    <Dialog className="relative font-poppins z-10" open={open} onClose={setOpen}>
+    <Dialog
+      className="relative font-poppins z-10"
+      open={open}
+      onClose={() => setOpen(false)}
+    >
       <DialogBackdrop
         transition
-        className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in"
+        className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
       />
 
       <div className="fixed inset-0 z-10 flex items-center justify-center w-screen overflow-y-auto">
         <div className="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
           <DialogPanel
             transition
-            className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in sm:my-8 sm:w-full sm:max-w-lg data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95"
+            className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:w-full sm:max-w-lg sm:my-8"
           >
             <div className="bg-white px-4 pb-4 pt-3 md:pt-2 sm:p-6 sm:pb-4">
               <div>
@@ -36,9 +63,7 @@ const AddCatalogueModal: FC<SockCardModalProps> = ({ open, setOpen }) => {
                   </DialogTitle>
                   <section className="w-full">
                     <div className="flex flex-col md:flex-row justify-between md:mt-3 w-full">
-                      <p className="text-lg md:text-md">
-                        Catalogue name
-                      </p>
+                      <p className="text-lg md:text-md">Catalogue name</p>
                     </div>
 
                     <div className="flex flex-col md:flex-row justify-between mt-1 md:mt-1 w-full">
@@ -47,6 +72,8 @@ const AddCatalogueModal: FC<SockCardModalProps> = ({ open, setOpen }) => {
                         type="text"
                         autoComplete="catalogue"
                         required
+                        value={catalogName}
+                        onChange={(e) => setCatalogName(e.target.value)}
                         className="block w-full rounded-md border-0 px-3.5 py-1.5 text-black bg-yellow-200 shadow-sm ring-1 ring-inset ring-yellow-600 focus:ring-2 focus:ring-inset focus:ring-yellow-600 sm:text-sm sm:leading-6"
                       />
                     </div>
@@ -56,6 +83,7 @@ const AddCatalogueModal: FC<SockCardModalProps> = ({ open, setOpen }) => {
                         <button
                           type="button"
                           className="flex w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6 text-yellow-500 shadow-sm hover:bg-yellow-600 hover:text-white"
+                          onClick={handleAddCatalog}
                         >
                           Add catalogue
                         </button>
@@ -70,7 +98,7 @@ const AddCatalogueModal: FC<SockCardModalProps> = ({ open, setOpen }) => {
                 type="button"
                 className="inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0"
                 onClick={() => setOpen(false)}
-                data-autofocus
+                autoFocus
               >
                 Close modal
               </button>
