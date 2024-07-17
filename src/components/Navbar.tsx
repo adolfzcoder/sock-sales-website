@@ -5,8 +5,11 @@ import {
   Menu,
 } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { PiBag } from "react-icons/pi";
 import logo from "../assets/logo-transparent-bg-30x50.png";
 import NavbarProps from "../interfaces/NavbarProps.interface";
+import { useState } from "react";
+import CartModal from "../modals/CartModal"
 
 const navigation = [
   { name: "Home", href: "/", current: true },
@@ -22,6 +25,8 @@ function classNames(
 }
 
 const Navbar: React.FC<NavbarProps> = ({ index }) => {
+  const [open, setOpen] = useState(false);
+  
   for (let count = 0; count < navigation.length; count++) {
     navigation[count].current = false;
   }
@@ -29,6 +34,7 @@ const Navbar: React.FC<NavbarProps> = ({ index }) => {
   navigation[index].current = true;
 
   return (
+    <>
     <Disclosure
       as="nav"
       className="bg-yellow-500 font-poppins  md:h-[6vh] lg:h-[10vh]"
@@ -76,7 +82,11 @@ const Navbar: React.FC<NavbarProps> = ({ index }) => {
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
-                  <div>
+                  <div className="flex gap-2">
+                  <button className="block px-3 py-2 text-sm text-black border border-black rounded-lg hover:text-white hover:border-white transition-all"
+                  onClick={() => setOpen(true)}>
+                      <PiBag />
+                    </button>
                     <button className="block px-4 py-2 text-sm text-black border border-black rounded-lg hover:text-white hover:border-white transition-all">
                       Logout
                     </button>
@@ -109,6 +119,9 @@ const Navbar: React.FC<NavbarProps> = ({ index }) => {
         </>
       )}
     </Disclosure>
+    
+    <CartModal open={open} setOpen={setOpen} />
+    </>
   );
 };
 
