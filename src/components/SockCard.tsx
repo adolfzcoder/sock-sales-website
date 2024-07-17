@@ -25,7 +25,7 @@ const SockCard: React.FC<SockCardProps> = ({ name, price, img }) => {
         </div>
       </div>
 
-      <SockCardModal open={open} setOpen={setOpen} name={name} price={price} />
+      <SockCardModal open={open} setOpen={setOpen} name={name} price={price} image={img} />
     </>
   );
 };
