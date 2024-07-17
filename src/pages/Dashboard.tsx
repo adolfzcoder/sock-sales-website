@@ -35,8 +35,6 @@ const socks = [
 const Dashboard = () => {
   return (
     <>
-      <Navbar index={1} />
-
       <main className="font-poppins">
         <section className="bg-white shadow">
           <div className="mx-auto md:flex md:justify-between max-w-7xl px-4 py-6 sm:px-6 lg:px-8">

@@ -9,3 +9,22 @@
 #bg-img{
   background-image: url('./assets/bg-login-signup.png');
 }
+
+textarea {
+  resize: none !important;
+}
+
+/* Custom scrollbar styling for WebKit browsers */
+textarea::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+textarea::-webkit-scrollbar-track {
+  background: #fef08a; /* Color of the track */
+  border-radius: 4px}
+
+textarea::-webkit-scrollbar-thumb {
+  background: #ca8a04; /* Color of the scrollbar thumb */
+  border-radius: 4px; /* Rounded corners */
+  cursor: default;
+}
