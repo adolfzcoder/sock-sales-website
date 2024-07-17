@@ -20,7 +20,7 @@ const SockCard: React.FC<SockCardProps> = ({ name, price, img }) => {
             onClick={() => setOpen(true)}
             className="shadow-lg w-full bg-white text-yellow-400 border border-yellow-400 hover:bg-yellow-500 hover:text-white rounded-md px-3 mt-3 py-1 transition-all"
           >
-            Order
+            See more
           </button>
         </div>
       </div>
