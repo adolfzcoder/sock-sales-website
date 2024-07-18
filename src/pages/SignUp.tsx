@@ -22,10 +22,7 @@ const SignUp = () => {
     const { email, password } = formData;
     try {
       // setIsLoading(true);
-      const { error } = await supabase.from("user").insert({
-        email: email,
-        password: password,
-      });
+
       const { error: signUpError } = await supabase.auth.signUp({
         email: email,
         password: password,
@@ -34,8 +31,16 @@ const SignUp = () => {
         return console.log(signUpError);
       }
 
-      console.log("Succesfully signed yp");
+      const { error } = await supabase.from("users").insert({
+        email: email,
+        password: password,
+      });
+      if (error) {
+        return alert(error);
+      }
+      alert("Succesfully signed up");
       navigate("/login");
+
       // if (data) {
       //   console.log("succesfully added new user", data);
       //   setIsLoading(false);

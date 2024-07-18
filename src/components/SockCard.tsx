@@ -2,7 +2,7 @@ import SockCardProps from "../interfaces/SockCardProps.interface";
 import { useState } from "react";
 import SockCardModal from "../modals/SockCardModal";
 
-const SockCard: React.FC<SockCardProps> = ({ name, price, img }) => {
+const SockCard: React.FC<SockCardProps> = ({ id,name, price, img }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -25,7 +25,7 @@ const SockCard: React.FC<SockCardProps> = ({ name, price, img }) => {
         </div>
       </div>
 
-      <SockCardModal open={open} setOpen={setOpen} name={name} price={price} image={img} />
+      <SockCardModal id={id}open={open} setOpen={setOpen} name={name} price={price} image={img} />
     </>
   );
 };

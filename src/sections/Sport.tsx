@@ -53,6 +53,7 @@ const Sport = () => {
         {sockDatas.map((item) => (
           <SockCard
             key={item.id}
+            id={item.id}
             img={item.sock_image_url}
             name={item.sock_name}
             price={item.sock_price}
