@@ -38,6 +38,7 @@ const catalogues = [
 ];
 
 const Home = () => {
+
   return (
     <>
       <Navbar index={0} />

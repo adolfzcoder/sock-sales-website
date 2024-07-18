@@ -26,7 +26,7 @@ const EditSockModal: FC<EditSockModalProps> = ({
   image,
 }) => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
+  const [selectedSock, setSelectedSock] = useState();
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file && file.type.startsWith("image/")) {
