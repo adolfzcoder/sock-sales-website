@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import {
   Dialog,
   DialogBackdrop,
@@ -6,6 +6,7 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import EditSockModal from "./EditSockModal";
+import supabase from "../config/supabaseClient";
 
 interface SockCardModalProps {
   id: number;
@@ -29,7 +30,21 @@ const SockCardModal: FC<SockCardModalProps> = ({
   image,
 }) => {
   const [openEdit, setOpenEdit] = useState(false);
+  const [sockDatas, setSockDatas] = useState<any[]>([]);
+  useEffect(() => {
+    const fetchSockData = async () => {
+      const { data, error } = await supabase
+        .from("socks")
+        .select("*, catalog(*)")
+        .eq("id", id);
 
+      if (error) {
+        return alert(error);
+      }
+      setSockDatas(data);
+    };
+    fetchSockData();
+  });
   return (
     <>
       <Dialog

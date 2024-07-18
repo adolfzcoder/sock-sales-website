@@ -35,7 +35,7 @@ const Sport = () => {
 
   useEffect(() => {
     const fetchSockData = async () => {
-      const { data, error } = await supabase.from("socks").select("*");
+      const { data, error } = await supabase.from("socks").select("*").eq("id", "1"); //get id for catalog for "sport"
 
       setSockDatas(data || []);
       if (error) {

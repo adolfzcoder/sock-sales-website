@@ -35,10 +35,25 @@ import supabase from "../config/supabaseClient";
 
 const OurSocks = () => {
   const [sockDatas, setSockDatas] = useState<any[]>([]);
+  const [catalogID, setCatalogID] = useState<any>();
 
+  const catalogName = "BestSelling";
   useEffect(() => {
+    const fetchCatalogData = async () => {
+      const { data, error } = await supabase
+        .from("catalog")
+        .select("id")
+        .match({ catalog_name: catalogName });
+      if (error) {
+        return alert(error);
+      }
+      setCatalogID(data);
+    };
     const fetchSockData = async () => {
-      const { data, error } = await supabase.from("socks").select("*");
+      const { data, error } = await supabase
+        .from("socks")
+        .select("*")
+        .match({ sock_catalog_id: catalogID });
 
       setSockDatas(data || []);
       if (error) {
@@ -46,26 +61,28 @@ const OurSocks = () => {
         return alert(error);
       }
     };
-
+    fetchCatalogData();
     fetchSockData();
   }, []);
   return (
-    <section className="pt-5">
-      <h2 className="ms-5 md:ms-10 text-2xl md:text-3xl font-bold font-nunito">
-        Best Selling🔥{" "}
-      </h2>
-      <div className="bg-white md:py-10 md:px-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-y-10 gap-y-9 pt-8 pb-12">
-        {sockDatas.map((item) => (
-          <SockCard
-            key={item.id}
-            id={item.id}
-            img={item.sock_image_url}
-            name={item.sock_name}
-            price={item.sock_price}
-          />
-        ))}
-      </div>
-    </section>
+    <>
+      <section className="pt-5">
+        <h2 className="ms-5 md:ms-10 text-2xl md:text-3xl font-bold font-nunito">
+          Best Selling🔥{" "}
+        </h2>
+        <div className="bg-white md:py-10 md:px-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-y-10 gap-y-9 pt-8 pb-12">
+          {sockDatas.map((item) => (
+            <SockCard
+              key={item.id}
+              id={item.id}
+              img={item.sock_image_url}
+              name={item.sock_name}
+              price={item.sock_price}
+            />
+          ))}
+        </div>
+      </section>
+    </>
   );
 };
 
