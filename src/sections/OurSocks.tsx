@@ -33,7 +33,7 @@ const socks = [
 
 const OurSocks = () => {
   return (
-    <section>
+    <section className="pt-5">
         <h2 className="ms-5 md:ms-10 text-2xl md:text-3xl font-bold font-nunito">Our Socks</h2>
       <div className="bg-white md:py-10 md:px-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-y-10 gap-y-9 pt-8 pb-12">
         {socks.map((item) => (

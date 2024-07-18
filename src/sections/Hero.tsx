@@ -4,7 +4,7 @@ import casual3 from "../assets/casual-3.jpg";
 
 const Hero = () => {
   return (
-    <section className="py-5 md:py-10">
+    <section className="py-5 md:py-10 bg-yellow-200">
       <div>
         <h1 className="text-center text-4xl md:text-5xl lg:text-6xl font-nunito font-bold">
           The best <span className="text-yellow-400">oportunity</span> to{" "}
