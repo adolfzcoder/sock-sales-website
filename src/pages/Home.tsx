@@ -11,6 +11,7 @@ import Formal from "../sections/Formal";
 import Sport from "../sections/Sport";
 import Funky from "../sections/Funky";
 import Casual from "../sections/Casual";
+import AboutUs from "../sections/AboutUs";
 import Footer from "../components/Footer";
 
 const catalogues = [
@@ -42,7 +43,7 @@ const Home = () => {
       <Navbar index={0} />
 
       <main className="font-poppins">
-        <div className="flex justify-center">
+        <div className="flex justify-center bg-yellow-200">
           <img src={logo} alt="" />
         </div>
 
@@ -63,6 +64,7 @@ const Home = () => {
           <Sport />
           <Funky />
           <Casual />
+          <AboutUs />
         </section>
       </main>
       <Footer />

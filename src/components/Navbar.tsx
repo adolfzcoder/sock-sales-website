@@ -45,7 +45,7 @@ const Navbar: React.FC<NavbarProps> = ({ index }) => {
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
-                <DisclosureButton className="relative inline-flex items-center justify-center rounded-md p-2 hover:bg-black hover:text-yellow-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black">
+                <DisclosureButton className="relative inline-flex items-center justify-center rounded-md p-2 hover:bg-black hover:text-yellow-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black">
                   <span className="absolute -inset-0.5" />
                   <span className="sr-only">Open main menu</span>
                   {open ? (
@@ -68,7 +68,7 @@ const Navbar: React.FC<NavbarProps> = ({ index }) => {
                         className={classNames(
                           item.current
                             ? "bg-black text-white"
-                            : "text-white hover:bg-yellow-600 transition-all",
+                            : "text-white hover:bg-yellow-400 transition-all",
                           "rounded-md px-3 py-2 text-sm font-medium"
                         )}
                         aria-current={item.current ? "page" : undefined}
@@ -106,7 +106,7 @@ const Navbar: React.FC<NavbarProps> = ({ index }) => {
                   className={classNames(
                     item.current
                       ? "bg-black text-white"
-                      : "text-white hover:bg-yellow-600 hover:text-white transition-all",
+                      : "text-white hover:bg-yellow-400 hover:text-white transition-all",
                     "block rounded-md px-3 py-2 text-base font-medium"
                   )}
                   aria-current={item.current ? "page" : undefined}

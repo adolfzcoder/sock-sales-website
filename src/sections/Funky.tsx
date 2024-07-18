@@ -30,9 +30,9 @@ const socks = [
 
 const Funky = () => {
   return (
-    <section className="mb-10">
+    <section className="pb-5 bg-yellow-200">
       <h2 className="ms-5 md:ms-10 text-xl md:text-2xl  font-nunito">Funky</h2>
-      <div className="bg-white md:py-10 md:px-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-y-10 gap-y-9 pt-8 pb-12">
+      <div className="md:py-10 md:px-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-y-10 gap-y-9 pt-8 pb-12">
         {socks.map((item) => (
           <SockCard
             key={item.id}
