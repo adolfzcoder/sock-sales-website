@@ -1,5 +1,5 @@
 import Navbar from "../components/Navbar";
-import logo from "../assets/logo-rec.png";
+import logo from "../assets/logo-rec.jpg";
 import { useEffect } from "react";
 
 import supabase from "../config/supabaseClient";
@@ -65,7 +65,7 @@ const Login: React.FC = () => {
         <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="space-y-6 shadow-lg rounded-lg pt-2 pb-4 px-4 bg-yellow-400"
+            className="space-y-6 shadow-lg rounded-lg pt-2 pb-4 px-4 bg-[#FFE500]"
           >
             <div>
               <label

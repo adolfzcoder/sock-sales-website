@@ -2,7 +2,7 @@ import supabase from "../config/supabaseClient";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import logo from "../assets/logo-rec.png";
+import logo from "../assets/logo-rec.jpg";
 
 interface Inputs {
   email: any;
@@ -61,7 +61,7 @@ const SignUp = () => {
 
         <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
           <form
-            className="space-y-6 shadow-lg rounded-lg pt-2 pb-4 px-4 bg-yellow-400"
+            className="space-y-6 shadow-lg rounded-lg pt-2 pb-4 px-4 bg-[#FFE500]"
             onSubmit={handleSubmit(onSubmit)}
           >
             <div>

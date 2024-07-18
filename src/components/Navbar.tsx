@@ -37,7 +37,7 @@ const Navbar: React.FC<NavbarProps> = ({ index }) => {
     <>
     <Disclosure
       as="nav"
-      className="bg-yellow-500 font-poppins  md:h-[6vh] lg:h-[10vh]"
+      className="bg-[#FFE500] font-poppins  md:h-[6vh] lg:h-[10vh]"
     >
       {({ open }) => (
         <>
@@ -57,7 +57,7 @@ const Navbar: React.FC<NavbarProps> = ({ index }) => {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
-                  <img className="h-8 w-auto" src={logo} alt="Your Company" />
+                  <img className="h-9 w-auto" src={logo} alt="Your Company" />
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">

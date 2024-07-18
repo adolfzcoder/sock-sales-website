@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect, useRef } from "react";
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from "@headlessui/react";
 import socks1 from "../assets/socks-1.png";
 import socks2 from "../assets/socks-2.png";
@@ -31,8 +31,7 @@ const CartModal: FC<CartModalProps> = ({ open, setOpen }) => {
     setItems((prevItems) =>
       prevItems.map((item) =>
         item.id === id && item.quantity > 0
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
+          ? { ...item, quantity: item.quantity - 1 } : item
       )
     );
   };
@@ -44,26 +43,35 @@ const CartModal: FC<CartModalProps> = ({ open, setOpen }) => {
   const totalItems = items.reduce((total, item) => total + item.quantity, 0);
   const subtotal = items.reduce((total, item) => total + item.price * item.quantity, 0);
 
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (open && modalRef.current) {
+      modalRef.current.scrollTop = 0;
+    }
+  }, [open]);
+
   return (
     <>
       <Dialog className="relative font-poppins z-10" open={open} onClose={() => setOpen(false)}>
         <DialogBackdrop
           transition
-          className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in"
+          className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
         />
 
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
           <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
             <DialogPanel
+              ref={modalRef}
               transition
-              className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in sm:my-8 sm:w-full sm:min-w-xl data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95"
+              className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:min-w-xl"
             >
               <div className="bg-white px-4 pb-4 pt-3 md:pt-5 sm:p-6 sm:pb-4">
                 <div>
                   <div className="sm:mt-1">
                     <DialogTitle
                       as="h2"
-                      className="text- text-center  md:text-2xl font-semibold leading-6 mb-2 md:mb-0 text-gray-900"
+                      className="text- text-center md:text-2xl font-semibold leading-6 mb-2 md:mb-0 text-gray-900"
                     >
                       Cart
                     </DialogTitle>
@@ -88,7 +96,6 @@ const CartModal: FC<CartModalProps> = ({ open, setOpen }) => {
                         <button
                           type="button"
                           className="inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold border border-black text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0"
-                          data-autofocus
                         >
                           Order now
                         </button>
@@ -102,7 +109,6 @@ const CartModal: FC<CartModalProps> = ({ open, setOpen }) => {
                   type="button"
                   className="mb-2 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0"
                   onClick={() => setOpen(false)}
-                  data-autofocus
                 >
                   Close modal
                 </button>
