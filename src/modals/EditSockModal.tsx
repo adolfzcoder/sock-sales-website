@@ -5,6 +5,7 @@ import {
   DialogPanel,
   DialogTitle,
 } from "@headlessui/react";
+import supabase from "../config/supabaseClient";
 
 interface EditSockModalProps {
   open: boolean;
@@ -15,8 +16,8 @@ interface EditSockModalProps {
 }
 
 const categories = ["Formal", "Sport", "Funky", "Casual"];
-const description =
-  "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit, magni aliquam! Quam voluptates ea molestiae, harum eveniet incidunt laudantium officia nemo nihil quod eius fugit. Quisquam excepturi similique aliquam tempora.";
+// const description =
+//   "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit, magni aliquam! Quam voluptates ea molestiae, harum eveniet incidunt laudantium officia nemo nihil quod eius fugit. Quisquam excepturi similique aliquam tempora.";
 
 const EditSockModal: FC<EditSockModalProps> = ({
   open,
@@ -26,7 +27,11 @@ const EditSockModal: FC<EditSockModalProps> = ({
   image,
 }) => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [selectedSock, setSelectedSock] = useState();
+  const [catalogue, setCatalogue] = useState();
+  const [description, setDescription] = useState();
+  const [sockDatas, setSockDatas] = useState<any[]>([]);
+  const [catalogDatas, setCatalogDatas] = useState<any[]>([]);
+
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file && file.type.startsWith("image/")) {
@@ -42,6 +47,31 @@ const EditSockModal: FC<EditSockModalProps> = ({
 
   useEffect(() => {
     setSelectedImage(image);
+    const fetchSockData = async () => {
+      const { data, error } = await supabase
+        .from("socks")
+        .select("*, catalog(*)")
+        .eq("sock_name", name);
+
+      if (error) {
+        console.log(error);
+        return alert(error);
+      }
+      setCatalogue(data[0].catalog.catalog_name);
+      setDescription(data[0].description);
+      setSockDatas(data);
+    };
+    const fetchCatalogData = async () => {
+      const { data, error } = await supabase.from("catalog").select();
+
+      if (error) {
+        console.log("There was error getting the catalog data", error);
+        alert(error);
+      }
+      setCatalogDatas(data || []);
+    };
+    fetchCatalogData();
+    fetchSockData();
   }, []);
 
   return (
@@ -114,8 +144,10 @@ const EditSockModal: FC<EditSockModalProps> = ({
                               id="catalogue"
                               className="block w-full rounded-md border-0 py-2 text-black bg-yellow-200 shadow-sm ring-1 ring-inset ring-yellow-600 focus:ring-2 focus:ring-inset focus:ring-yellow-600 sm:text-sm sm:leading-6 outline-none"
                             >
-                              {categories.map((item) => (
-                                <option id={item}>{item}</option>
+                              {catalogDatas.map((item) => (
+                                <option key={item.id} id={item.id}>
+                                  {item.catalog_name}
+                                </option>
                               ))}
                             </select>
                           </div>

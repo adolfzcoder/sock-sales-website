@@ -17,9 +17,9 @@ interface SockCardModalProps {
   image: string;
 }
 
-const catalogue = "Funky";
-const description =
-  "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit, magni aliquam! Quam voluptates ea molestiae, harum eveniet incidunt laudantium officia nemo nihil quod eius fugit. Quisquam excepturi similique aliquam tempora.";
+// const catalogue = "Funky";
+// const description =
+//   "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit, magni aliquam! Quam voluptates ea molestiae, harum eveniet incidunt laudantium officia nemo nihil quod eius fugit. Quisquam excepturi similique aliquam tempora.";
 
 const SockCardModal: FC<SockCardModalProps> = ({
   id,
@@ -30,7 +30,10 @@ const SockCardModal: FC<SockCardModalProps> = ({
   image,
 }) => {
   const [openEdit, setOpenEdit] = useState(false);
-  const [sockDatas, setSockDatas] = useState<any[]>([]);
+  const [, setSockDatas] = useState<any[]>([]);
+  const [catalogue, setCatalogue] = useState();
+  const [description, setDescription] = useState();
+
   useEffect(() => {
     const fetchSockData = async () => {
       const { data, error } = await supabase
@@ -39,11 +42,17 @@ const SockCardModal: FC<SockCardModalProps> = ({
         .eq("id", id);
 
       if (error) {
+        console.log(error);
         return alert(error);
       }
+      setCatalogue(data[0].catalog.catalog_name);
+      setDescription(data[0].description);
       setSockDatas(data);
     };
     fetchSockData();
+
+
+    
   });
   return (
     <>
@@ -114,6 +123,7 @@ const SockCardModal: FC<SockCardModalProps> = ({
                         </div>
                       </div>
 
+{/*  */}
                       <div className="mt-3">
                         <button
                           type="button"
@@ -124,6 +134,7 @@ const SockCardModal: FC<SockCardModalProps> = ({
                           Edit sock
                         </button>
                       </div>
+
                     </section>
                   </div>
                 </div>
