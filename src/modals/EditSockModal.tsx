@@ -15,7 +15,7 @@ interface EditSockModalProps {
   image: string;
 }
 
-const categories = ["Formal", "Sport", "Funky", "Casual"];
+// const categories = ["Formal", "Sport", "Funky", "Casual"];
 // const description =
 //   "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit, magni aliquam! Quam voluptates ea molestiae, harum eveniet incidunt laudantium officia nemo nihil quod eius fugit. Quisquam excepturi similique aliquam tempora.";
 
@@ -27,9 +27,9 @@ const EditSockModal: FC<EditSockModalProps> = ({
   image,
 }) => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [catalogue, setCatalogue] = useState();
+  const [, setCatalogue] = useState();
   const [description, setDescription] = useState();
-  const [sockDatas, setSockDatas] = useState<any[]>([]);
+  const [, setSockDatas] = useState<any[]>([]);
   const [catalogDatas, setCatalogDatas] = useState<any[]>([]);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {

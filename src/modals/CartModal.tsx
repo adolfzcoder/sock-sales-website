@@ -55,11 +55,11 @@ const CartModal: FC<CartModalProps> = ({ open, setOpen }) => {
 
   const modalRef = useRef<HTMLDivElement>(null);
 
-  const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [, setUserEmail] = useState<string | null>(null);
   const [userID, setUserID] = useState();
   const [cartDatas, setCartDatas] = useState<any[]>([]);
 
-  const [sockID, setSockCartID] = useState<any[]>([]);
+  const [, setSockCartID] = useState<any[]>([]);
   useEffect(() => {
     if (open && modalRef.current) {
       modalRef.current.scrollTop = 0;
@@ -128,11 +128,12 @@ const CartModal: FC<CartModalProps> = ({ open, setOpen }) => {
         />
 
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-          <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+          <div className="flex min-h-full items-end justify-center pb-4 text-center sm:items-center sm:p-0">
             <DialogPanel
               ref={modalRef}
               transition
-              className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-xl"
+              className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full max-w-xl
+              sm:w-xl"
             >
               <div className="bg-white px-4 pb-4 pt-3 md:pt-5 sm:p-6 sm:pb-4">
                 <div>
