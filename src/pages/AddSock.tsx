@@ -27,8 +27,12 @@ const AddSocks = () => {
     }
   };
 
+
+
+  
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+    // event.preventDefault();
 
     // Construct the object to insert into the database
     const newSock = {
