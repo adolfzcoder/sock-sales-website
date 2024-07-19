@@ -35,7 +35,10 @@ const Casual = () => {
 
   useEffect(() => {
     const fetchSockData = async () => {
-      const { data, error } = await supabase.from("socks").select("*");
+      const { data, error } = await supabase
+        .from("socks")
+        .select("*")
+        .match({ sock_catalog_id: 6 });
 
       setSockDatas(data || []);
       if (error) {

@@ -35,7 +35,7 @@ import supabase from "../config/supabaseClient";
 
 const OurSocks = () => {
   const [sockDatas, setSockDatas] = useState<any[]>([]);
-  const [catalogID, setCatalogID] = useState<any>();
+  const [, setCatalogID] = useState<any>();
 
   const catalogName = "BestSelling";
   useEffect(() => {
@@ -53,7 +53,7 @@ const OurSocks = () => {
       const { data, error } = await supabase
         .from("socks")
         .select("*")
-        .match({ sock_catalog_id: catalogID });
+        .match({ sock_catalog_id: "4" });
 
       setSockDatas(data || []);
       if (error) {
