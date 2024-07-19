@@ -110,7 +110,7 @@ const Navbar: React.FC<NavbarProps> = ({ index }) => {
                   </div>
                   <div className="hidden sm:ml-6 sm:block">
                     <div className="flex space-x-4">
-                      {filteredNavigation.map((item, idx) => (
+                      {filteredNavigation.map((item, ) => (
                         <a
                           key={item.name}
                           href={item.href}
