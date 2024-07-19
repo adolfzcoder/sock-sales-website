@@ -42,8 +42,8 @@ const Sport = () => {
 
       setSockDatas(data || []);
       if (error) {
-        console.log(error);
-        return alert(error);
+        return console.log(error);
+        // return alert(error);
       }
     };
 

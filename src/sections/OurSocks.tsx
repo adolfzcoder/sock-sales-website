@@ -45,7 +45,8 @@ const OurSocks = () => {
         .select("id")
         .match({ catalog_name: catalogName });
       if (error) {
-        return alert(error);
+        return console.log("There was an error fetchign catalog data", error);
+        // return alert(error);
       }
       setCatalogID(data);
     };

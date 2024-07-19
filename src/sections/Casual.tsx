@@ -42,8 +42,8 @@ const Casual = () => {
 
       setSockDatas(data || []);
       if (error) {
-        console.log(error);
-        return alert(error);
+        return console.log("There was an error fetchign sock data", error);
+        // return alert(error);
       }
     };
 

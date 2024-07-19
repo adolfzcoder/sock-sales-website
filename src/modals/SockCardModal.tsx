@@ -42,17 +42,14 @@ const SockCardModal: FC<SockCardModalProps> = ({
         .eq("id", id);
 
       if (error) {
-        console.log(error);
-        return alert(error);
+        return console.log(error);
+        // return alert(error);
       }
       setCatalogue(data[0].catalog.catalog_name);
       setDescription(data[0].description);
       setSockDatas(data);
     };
     fetchSockData();
-
-
-    
   });
   return (
     <>
@@ -123,7 +120,7 @@ const SockCardModal: FC<SockCardModalProps> = ({
                         </div>
                       </div>
 
-{/*  */}
+                      {/*  */}
                       <div className="mt-3">
                         <button
                           type="button"
@@ -134,7 +131,6 @@ const SockCardModal: FC<SockCardModalProps> = ({
                           Edit sock
                         </button>
                       </div>
-
                     </section>
                   </div>
                 </div>

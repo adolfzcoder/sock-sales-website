@@ -35,12 +35,15 @@ const Funky = () => {
 
   useEffect(() => {
     const fetchSockData = async () => {
-      const { data, error } = await supabase.from("socks").select("*").match({sock_catalog_id: "5"});
+      const { data, error } = await supabase
+        .from("socks")
+        .select("*")
+        .match({ sock_catalog_id: "5" });
 
       setSockDatas(data || []);
       if (error) {
-        console.log(error);
-        return alert(error);
+        return console.log("There was an error fetchign sock data", error);
+        // return alert(error);
       }
     };
 
