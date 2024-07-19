@@ -34,6 +34,8 @@ const SockCardModal: FC<SockCardModalProps> = ({
   const [catalogue, setCatalogue] = useState();
   const [description, setDescription] = useState();
 
+  const [userID, setUserID] = useState();
+
   useEffect(() => {
     const fetchUserData = async () => {
       const {
@@ -45,7 +47,7 @@ const SockCardModal: FC<SockCardModalProps> = ({
         // Check for admin role if user is logged in
         const { data, error } = await supabase
           .from("users")
-          .select("is_admin")
+          .select("is_admin, user_id")
           .eq("email", user.email);
 
         if (error) {
@@ -53,7 +55,10 @@ const SockCardModal: FC<SockCardModalProps> = ({
           return;
         }
 
-        setIsAdmin(data[0]?.is_admin === 1); // Check if is_admin is 1
+        setIsAdmin(data[0]?.is_admin === 1);
+
+        setUserID(data[0]?.user_id);
+        // Check if is_admin is 1
       }
     };
     const fetchCatalogData = async () => {
@@ -104,6 +109,28 @@ const SockCardModal: FC<SockCardModalProps> = ({
     fetchCatalogData();
     fetchUserData();
   }, []);
+
+  const handleAddToCart = async () => {
+    if (!userID) {
+      // Handle case where user is not logged in
+      console.warn("User is not logged in. Please sign in to add to cart.");
+      return;
+    }
+
+    const { data, error } = await supabase.from("carts").insert({
+      user_id: userID, // Use the fetched user ID
+      sock_id: id, // Use the provided sock ID
+      // Add other cart item details if needed (e.g., quantity)
+    });
+
+    if (error) {
+      console.error("Error adding item to cart:", error);
+      // Handle add-to-cart error (e.g., display an error message)
+    } else {
+      console.log("Item added to cart successfully:", data);
+      // Handle successful add-to-cart (e.g., display a success message or update UI)
+    }
+  };
   return (
     <>
       <Dialog
@@ -167,6 +194,7 @@ const SockCardModal: FC<SockCardModalProps> = ({
                           <button
                             type="button"
                             className="flex w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6 text-yellow-500 shadow-sm hover:bg-yellow-600 hover:text-white"
+                            onClick={handleAddToCart}
                           >
                             Add to cart
                           </button>

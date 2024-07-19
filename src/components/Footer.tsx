@@ -48,15 +48,28 @@ const Footer = () => {
       <div className="flex justify-between items-start gap-20 flex-wrap max-lg:flex-col">
         <div className="flex flex-col items-center md:items-start">
           <a href="/">
-            <img src={footerLogo} alt="Footer logo" width={150} height={40} className="rounded-md" />
+            <img
+              src={footerLogo}
+              alt="Footer logo"
+              width={150}
+              height={40}
+              className="rounded-md"
+            />
           </a>
           <p className="mt-6 text-base leading-7 font-montserrat text-white-400 sm:max-w-sm">
-            Get socks ready for every single thing at Kasi. Find our perfect fit for you. Don't waste time.
+            Get socks ready for every single thing at Kasi. Find our perfect fit
+            for you. Don't waste time.
           </p>
           <div className="flex items-center gap-5 mt-8">
             {socialMedia.map((icon) => (
               <div className="flex justify-center items-center w-12 h-12 bg-white rounded-full hover:bg-slate-gray cursor-pointer transition-all">
-                <img src={icon.src} alt={icon.alt} width={24} height={24} />
+                <img
+                  src={icon.src}
+                  key={icon.src}
+                  alt={icon.alt}
+                  width={24}
+                  height={24}
+                />
               </div>
             ))}
           </div>
