@@ -38,7 +38,6 @@ const catalogues = [
 ];
 
 const Home = () => {
-
   return (
     <>
       <Navbar index={0} />
@@ -55,6 +54,7 @@ const Home = () => {
         </section>
 
         <Hero />
+        {/* Best selling sections */}
         <OurSocks />
 
         <section>

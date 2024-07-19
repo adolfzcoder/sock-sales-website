@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import AddCatalogueModal from "../modals/AddCatalogueModal";
+import supabase from "../config/supabaseClient";
 
-const categories = ["Formal", "Sport", "Funky", "Casual"];
+// const categories = ["Formal", "Sport", "Funky", "Casual"];
 
 const AddSocks = () => {
   const [open, setOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [catalogDatas, setCatalogDatas] = useState<any[]>([]);
+  const [sockName, setSockName] = useState("");
+  const [catalogId, setCatalogId] = useState(""); // Assuming you have a way to select catalog ID
+  const [sockPrice, setSockPrice] = useState("");
+  const [description, setDescription] = useState("");
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -20,6 +26,53 @@ const AddSocks = () => {
       alert("Please select a valid image file");
     }
   };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    // Construct the object to insert into the database
+    const newSock = {
+      sock_name: sockName,
+      sock_catalog_id: catalogId,
+      sock_image_url: selectedImage,
+      sock_price: parseFloat(sockPrice),
+      description: description,
+    };
+
+    try {
+      const { data, error } = await supabase.from("socks").insert([newSock]);
+
+      if (error) {
+        console.error("Error adding sock:", error);
+        alert("Failed to add sock. Please try again.");
+      } else {
+        console.log("Sock added successfully:", data);
+        // Optionally, reset form fields or provide feedback to the user
+        setSockName("");
+        setCatalogId("");
+        setSelectedImage(null);
+        setSockPrice("");
+        setDescription("");
+        alert("Sock added successfully!");
+      }
+    } catch (error) {
+      console.error("Error adding sock:", error);
+      alert("Failed to add sock. Please try again.");
+    }
+  };
+
+  useEffect(() => {
+    const fetchCatalogData = async () => {
+      const { data, error } = await supabase.from("catalog").select();
+
+      if (error) {
+        console.log("There was error getting the catalog data", error);
+        alert(error);
+      }
+      setCatalogDatas(data || []);
+    };
+    fetchCatalogData();
+  });
   return (
     <>
       <Navbar index={1} />
@@ -29,7 +82,10 @@ const AddSocks = () => {
         id="bg-img"
       >
         <div className="mt-1 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-2 shadow-lg rounded-lg pt-5 pb-5 px-4 bg-[#FFE500]">
+          <form
+            className="space-y-2 shadow-lg rounded-lg pt-5 pb-5 px-4 bg-[#FFE500]"
+            onSubmit={handleSubmit}
+          >
             <div>
               <div className=" flex justify-center">
                 <input
@@ -71,9 +127,15 @@ const AddSocks = () => {
                   <select
                     id="catalogue"
                     className="block w-full rounded-md border-0 py-2 text-black bg-yellow-200 shadow-sm ring-1 ring-inset ring-yellow-600 focus:ring-2 focus:ring-inset focus:ring-yellow-600 sm:text-sm sm:leading-6 outline-none"
+                    required
+                    value={catalogId}
+                    onChange={(e) => setCatalogId(e.target.value)}
                   >
-                    {categories.map((item) => (
-                      <option id={item}>{item}</option>
+                    <option value="">Select Catalogue</option>
+                    {catalogDatas.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.catalog_name}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -105,6 +167,8 @@ const AddSocks = () => {
                     autoComplete="sock-name"
                     required
                     className="block w-full rounded-md border-0 px-3.5 py-1.5 text-black bg-yellow-200 shadow-sm ring-1 ring-inset ring-yellow-600 focus:ring-2 focus:ring-inset focus:ring-yellow-600  sm:text-sm sm:leading-6"
+                    value={sockName}
+                    onChange={(e) => setSockName(e.target.value)}
                   />
                 </div>
               </div>
@@ -123,6 +187,8 @@ const AddSocks = () => {
                     autoComplete="sock-price"
                     required
                     className="block w-full rounded-md border-0 px-3.5 py-1.5 text-black bg-yellow-200 shadow-sm ring-1 ring-inset ring-yellow-600 focus:ring-2 focus:ring-inset focus:ring-yellow-600 sm:text-sm sm:leading-6"
+                    value={sockPrice}
+                    onChange={(e) => setSockPrice(e.target.value)}
                   />
                 </div>
               </div>
@@ -142,6 +208,8 @@ const AddSocks = () => {
                   autoComplete="sock-price"
                   required
                   className="block w-full rounded-md border-0 px-3.5 py-1.5 text-black bg-yellow-200 shadow-sm ring-1 ring-inset ring-yellow-600 focus:ring-2 focus:ring-inset focus:ring-yellow-600 sm:text-sm sm:leading-6 outline-none"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
                 ></textarea>
               </div>
             </div>
