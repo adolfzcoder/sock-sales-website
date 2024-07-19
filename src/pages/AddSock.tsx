@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import AddCatalogueModal from "../modals/AddCatalogueModal";
 import supabase from "../config/supabaseClient";
+import {
+  get_file_url,
+  upload_file_to_supabase,
+} from "../utils/supabase_functions";
 
 // const categories = ["Formal", "Sport", "Funky", "Casual"];
 
@@ -13,32 +17,80 @@ const AddSocks = () => {
   const [catalogId, setCatalogId] = useState(""); // Assuming you have a way to select catalog ID
   const [sockPrice, setSockPrice] = useState("");
   const [description, setDescription] = useState("");
+  const [file, setFile] = useState<File | null>(null);
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file && file.type.startsWith("image/")) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setSelectedImage(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    } else {
-      alert("Please select a valid image file");
+  const [filePath, setFilePath] = useState<string | undefined>(undefined);
+
+  // const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = event.target.files?.[0];
+  //   if (file && file.type.startsWith("image/")) {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       setSelectedImage(reader.result as string);
+  //     };
+  //     reader.readAsDataURL(file);
+  //   } else {
+  //     alert("Please select a valid image file");
+  //   }
+  // };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files ? event.target.files[0] : null;
+    if (file) {
+      validateFile(file);
     }
+  };
+
+  const validateFile = (file: File) => {
+    const validTypes = ["image/jpeg", "image/png"];
+    if (!validTypes.includes(file.type)) {
+      alert("Invalid file type. Only JPEG and PNG are allowed.");
+      setFile(null);
+      return;
+    }
+
+    const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
+    if (file.size > maxSizeInBytes) {
+      alert("File size exceeds the 5MB limit.");
+      setFile(null);
+      return;
+    }
+
+    setFile(file);
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    if (!file) {
+      return alert("Please select an image to upload");
+    }
+
+    const { data, error: fileUploadError } = await upload_file_to_supabase(
+      file
+    );
+    if (data) {
+      setFilePath(get_file_url(data?.path));
+    }
+
+    if (fileUploadError) {
+      console.log("Error with the file upload", fileUploadError.message);
+      console.log("THIS IS THE ERROR", fileUploadError);
+      return alert(fileUploadError.message);
+    }
+
+    setFile(null);
+
     // Construct the object to insert into the database
     const newSock = {
       sock_name: sockName,
       sock_catalog_id: catalogId,
-      sock_image_url: selectedImage,
+      sock_image_url: setFilePath,
       sock_price: parseFloat(sockPrice),
       description: description,
     };
 
+    console.log(setFilePath);
     try {
       const { data, error } = await supabase.from("socks").insert([newSock]);
 
@@ -72,7 +124,7 @@ const AddSocks = () => {
       setCatalogDatas(data || []);
     };
     fetchCatalogData();
-  });
+  }, []);
   return (
     <>
       <Navbar index={1} />
@@ -91,9 +143,11 @@ const AddSocks = () => {
                 <input
                   id="file-input"
                   type="file"
-                  onChange={handleImageChange}
+                  // onChange={handleImageChange}
                   className="hidden"
                   accept="image/*"
+                  onChange={handleFileChange}
+                  // ref={fileInputRef}
                 />
                 {selectedImage && (
                   <img

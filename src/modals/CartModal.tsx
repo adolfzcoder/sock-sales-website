@@ -114,7 +114,7 @@ const CartModal: FC<CartModalProps> = ({ open, setOpen }) => {
 
     fetchCartData();
     fetchUserData();
-  });
+  }, []);
   return (
     <>
       <Dialog
