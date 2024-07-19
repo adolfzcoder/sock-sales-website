@@ -17,10 +17,6 @@ interface SockCardModalProps {
   image: string;
 }
 
-// const catalogue = "Funky";
-// const description =
-//   "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit, magni aliquam! Quam voluptates ea molestiae, harum eveniet incidunt laudantium officia nemo nihil quod eius fugit. Quisquam excepturi similique aliquam tempora.";
-
 const SockCardModal: FC<SockCardModalProps> = ({
   id,
   open,
@@ -30,11 +26,46 @@ const SockCardModal: FC<SockCardModalProps> = ({
   image,
 }) => {
   const [openEdit, setOpenEdit] = useState(false);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false); // Flag to control button visibility
+  const [, setCatalogDatas] = useState<any[]>([]);
+
   const [, setSockDatas] = useState<any[]>([]);
   const [catalogue, setCatalogue] = useState();
   const [description, setDescription] = useState();
 
   useEffect(() => {
+    const fetchUserData = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (user) {
+        setUserEmail(user?.email ?? ""); // Set to empty string if user or user.email is undefined
+        // Check for admin role if user is logged in
+        const { data, error } = await supabase
+          .from("users")
+          .select("is_admin")
+          .eq("email", user.email);
+
+        if (error) {
+          console.error("Error fetching user admin status:", error);
+          return;
+        }
+
+        setIsAdmin(data[0]?.is_admin === 1); // Check if is_admin is 1
+      }
+    };
+    const fetchCatalogData = async () => {
+      const { data, error } = await supabase.from("catalog").select();
+
+      if (error) {
+        console.log("There was error getting the catalog data", error);
+        alert(error);
+      }
+      setCatalogDatas(data || []);
+    };
+
     const fetchSockData = async () => {
       const { data, error } = await supabase
         .from("socks")
@@ -49,12 +80,34 @@ const SockCardModal: FC<SockCardModalProps> = ({
       setDescription(data[0].description);
       setSockDatas(data);
     };
+
+    // const fetchUserData = async () => {
+    //   const {
+    //     data: { user },
+    //   } = await supabase.auth.getUser();
+
+    //   setUserEmail(user?[0].email);
+    // };
+
+    // const fetchUserTable = async () => {
+    //   const { data, error } = await supabase
+    //     .from("users")
+    //     .select("email")
+    //     .eq("email", userEmail);
+
+    //   if (error) {
+    //     return console.log("Error getting users Emails", error);
+    //   }
+    // };
     fetchSockData();
-  });
+
+    fetchCatalogData();
+    fetchUserData();
+  }, []);
   return (
     <>
       <Dialog
-        className="relative font-poppins z-10"
+        // className="relative font-poppins z-10"
         open={open}
         onClose={setOpen}
       >
@@ -122,14 +175,16 @@ const SockCardModal: FC<SockCardModalProps> = ({
 
                       {/*  */}
                       <div className="mt-3">
-                        <button
-                          type="button"
-                          className="inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold border border-black text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0"
-                          onClick={() => setOpenEdit(true)}
-                          data-autofocus
-                        >
-                          Edit sock
-                        </button>
+                        {userEmail && isAdmin && (
+                          <button
+                            type="button"
+                            className="inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold border border-black text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0"
+                            onClick={() => setOpenEdit(true)}
+                            data-autofocus
+                          >
+                            Edit sock
+                          </button>
+                        )}
                       </div>
                     </section>
                   </div>
