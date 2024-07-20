@@ -30,7 +30,7 @@ const AddSocks = () => {
   //     };
   //     reader.readAsDataURL(file);
   //   } else {
-  //     alert("Please select a valid image file");
+  //     console.log("Please select a valid image file");
   //   }
   // };
 
@@ -91,24 +91,24 @@ const AddSocks = () => {
 
     console.log(setFilePath);
     try {
-      const { data, error } = await supabase.from("socks").insert([newSock]);
+      const { error } = await supabase.from("socks").insert([newSock]);
 
       if (error) {
         console.error("Error adding sock:", error);
         alert("Failed to add sock. Please try again.");
       } else {
-        console.log("Sock added successfully:", data);
+        alert("Sock added successfully:");
         // Optionally, reset form fields or provide feedback to the user
         setSockName("");
         setCatalogId("");
         setSelectedImage(null);
         setSockPrice("");
         setDescription("");
-        alert("Sock added successfully!");
+        console.log("Sock added successfully!");
       }
     } catch (error) {
       console.error("Error adding sock:", error);
-      alert("Failed to add sock. Please try again.");
+      console.log("Failed to add sock. Please try again.");
     }
   };
 
@@ -118,7 +118,7 @@ const AddSocks = () => {
 
       if (error) {
         console.log("There was error getting the catalog data", error);
-        alert(error);
+        console.log(error);
       }
       setCatalogDatas(data || []);
     };

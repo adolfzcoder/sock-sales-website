@@ -41,7 +41,7 @@ const Login: React.FC = () => {
       console.log("logout... page");
 
       // if (error) {
-      //   return alert(error.message);
+      //   return console.log(error.message);
       // }
 
       if (data.user) {

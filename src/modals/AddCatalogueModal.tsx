@@ -30,7 +30,7 @@ const AddCatalogueModal: FC<SockCardModalProps> = ({ open, setOpen }) => {
       setOpen(false);
     } catch (error) {
       console.log("error in catch", error);
-      alert(error);
+      console.log(error);
       // Handle error state or display an error message
     }
   };

@@ -41,7 +41,7 @@ const EditSockModal: FC<EditSockModalProps> = ({
       };
       reader.readAsDataURL(file);
     } else {
-      alert("Please select a valid image file");
+      console.log("Please select a valid image file");
     }
   };
 
@@ -54,8 +54,7 @@ const EditSockModal: FC<EditSockModalProps> = ({
         .eq("sock_name", name);
 
       if (error) {
-        console.log(error);
-        return alert(error);
+        return console.log(error);
       }
       setCatalogue(data[0].catalog.catalog_name);
       setDescription(data[0].description);
@@ -66,7 +65,7 @@ const EditSockModal: FC<EditSockModalProps> = ({
 
       if (error) {
         console.log("There was error getting the catalog data", error);
-        alert(error);
+        console.log(error);
       }
       setCatalogDatas(data || []);
     };

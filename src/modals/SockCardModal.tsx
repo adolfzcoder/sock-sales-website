@@ -66,7 +66,7 @@ const SockCardModal: FC<SockCardModalProps> = ({
 
       if (error) {
         console.log("There was error getting the catalog data", error);
-        alert(error);
+        console.log(error);
       }
       setCatalogDatas(data || []);
     };
@@ -79,7 +79,7 @@ const SockCardModal: FC<SockCardModalProps> = ({
 
       if (error) {
         return console.log(error);
-        // return alert(error);
+        // return console.log(error);
       }
       setCatalogue(data[0].catalog.catalog_name);
       setDescription(data[0].description);

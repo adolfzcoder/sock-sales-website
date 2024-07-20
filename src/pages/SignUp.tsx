@@ -38,7 +38,7 @@ const SignUp = () => {
       if (error) {
         return console.log(error);
       }
-      alert("Succesfully signed up");
+      console.log("Succesfully signed up");
       navigate("/login");
 
       // if (data) {
