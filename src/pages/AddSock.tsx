@@ -69,14 +69,13 @@ const AddSocks = () => {
     const { data, error: fileUploadError } = await upload_file_to_supabase(
       file
     );
-    if (data) {
-      setFilePath(get_file_url(data?.path));
-    }
+
+    setFilePath(get_file_url(data!.path)); // Use with caution
 
     if (fileUploadError) {
       console.log("Error with the file upload", fileUploadError.message);
       console.log("THIS IS THE ERROR", fileUploadError);
-      return alert(fileUploadError.message);
+      return console.log(fileUploadError.message);
     }
 
     setFile(null);
