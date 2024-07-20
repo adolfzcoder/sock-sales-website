@@ -54,19 +54,21 @@ const EditSockModal: FC<EditSockModalProps> = ({
         .eq("sock_name", name);
 
       if (error) {
+        /// console.log(error);
         console.log(error);
-        return alert(error);
       }
-      setCatalogue(data[0].catalog.catalog_name);
-      setDescription(data[0].description);
-      setSockDatas(data);
+      if (data) {
+        setCatalogue(data[0].catalog.catalog_name);
+        setDescription(data[0].description);
+        setSockDatas(data);
+      }
     };
     const fetchCatalogData = async () => {
       const { data, error } = await supabase.from("catalog").select();
 
       if (error) {
         console.log("There was error getting the catalog data", error);
-        alert(error);
+        // alert(error);
       }
       setCatalogDatas(data || []);
     };

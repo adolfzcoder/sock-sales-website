@@ -28,7 +28,7 @@ const SignUp = () => {
         password: password,
       });
       if (signUpError) {
-        return console.log(signUpError);
+         console.log(signUpError);
       }
 
       const { error } = await supabase.from("users").insert({
@@ -36,7 +36,7 @@ const SignUp = () => {
         password: password,
       });
       if (error) {
-        return console.log(error);
+         console.log(error);
       }
       alert("Succesfully signed up");
       navigate("/login");

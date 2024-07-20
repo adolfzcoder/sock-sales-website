@@ -42,7 +42,7 @@ const Formal = () => {
 
       setSockDatas(data || []);
       if (error) {
-        return console.log("There was an error fetchign sock data", error);
+         console.log("There was an error fetchign sock data", error);
         //return alert(error);
       }
     };

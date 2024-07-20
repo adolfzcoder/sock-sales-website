@@ -29,8 +29,8 @@ const AddCatalogueModal: FC<SockCardModalProps> = ({ open, setOpen }) => {
       // Optionally, you can close the modal after successful insertion
       setOpen(false);
     } catch (error) {
-      console.log("error in catch", error);
-      alert(error);
+       console.log("error in catch", error);
+      // alert(error);
       // Handle error state or display an error message
     }
   };

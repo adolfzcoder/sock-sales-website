@@ -1,6 +1,6 @@
 interface CatalogProps {
     name: string,
-    image: string
+    image: any
 }
 
 export default CatalogProps;

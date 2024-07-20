@@ -45,7 +45,7 @@ const OurSocks = () => {
         .select("id")
         .match({ catalog_name: catalogName });
       if (error) {
-        return console.log("There was an error fetchign catalog data", error);
+         console.log("There was an error fetchign catalog data", error);
         // return alert(error);
       }
       setCatalogID(data);
@@ -58,8 +58,8 @@ const OurSocks = () => {
 
       setSockDatas(data || []);
       if (error) {
-        console.log(error);
-        return alert(error);
+         console.log(error);
+        // return alert(error);
       }
     };
     fetchCatalogData();

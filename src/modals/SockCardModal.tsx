@@ -66,7 +66,6 @@ const SockCardModal: FC<SockCardModalProps> = ({
 
       if (error) {
         console.log("There was error getting the catalog data", error);
-        alert(error);
       }
       setCatalogDatas(data || []);
     };
@@ -78,12 +77,14 @@ const SockCardModal: FC<SockCardModalProps> = ({
         .eq("id", id);
 
       if (error) {
-        return console.log(error);
+        console.log(error);
         // return alert(error);
       }
-      setCatalogue(data[0].catalog.catalog_name);
-      setDescription(data[0].description);
-      setSockDatas(data);
+      if (data) {
+        setCatalogue(data[0].catalog.catalog_name);
+        setDescription(data[0].description);
+        setSockDatas(data || []);
+      }
     };
 
     // const fetchUserData = async () => {
