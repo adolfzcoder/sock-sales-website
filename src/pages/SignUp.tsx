@@ -36,7 +36,7 @@ const SignUp = () => {
         password: password,
       });
       if (error) {
-        return alert(error);
+        return console.log(error);
       }
       alert("Succesfully signed up");
       navigate("/login");

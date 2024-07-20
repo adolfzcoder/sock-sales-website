@@ -26,7 +26,7 @@ const Login: React.FC = () => {
 
     // setIsLoading(false);
     if (error) {
-      return alert(error.message);
+      return console.log(error.message);
     }
     console.log("Succesfully signed up");
 
