@@ -19,7 +19,7 @@ const AddSocks = () => {
   const [description, setDescription] = useState("");
   const [file, setFile] = useState<File | null>(null);
 
-  const [filePath, setFilePath] = useState<string | undefined>(undefined);
+  const [, setFilePath] = useState<string | undefined>(undefined);
 
   // const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   //   const file = event.target.files?.[0];
